@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sign In</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QFrame" name="leftFrame">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #FFFFFF;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="logoLabel">
+            <property name="minimumSize">
+                <size>
+                    <width>300</width>
+                    <height>300</height>
+                </size>
+            </property>
+            <property name="pixmap">
+                <pixmap></pixmap>
+            </property>
+            <property name="scaledContents">
+                <bool>true</bool>
+            </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>300</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QFrame" name="rightFrame">
+      <property name="styleSheet">
+       <string notr="true">background-color: #F5F6FA;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="titleLabel">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Welcome Back!</string>
+         </property>
+        </widget>
+       </item>
+
+       <item>
+        <widget class="QLineEdit" name="nameInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+ border: 1px solid #D0D0D0;
+ border-radius: 8px;
+ padding: 8px;
+ background-color: white;
+}</string>
+         </property>
+         <property name="placeholderText">
+          <string>Username</string>
+         </property>
+        </widget>
+       </item>
+
+       <item>
+        <widget class="QLineEdit" name="passwordInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+ border: 1px solid #D0D0D0;
+ border-radius: 8px;
+ padding: 8px;
+ background-color: white;
+}</string>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+         <property name="placeholderText">
+          <string>Password</string>
+         </property>
+        </widget>
+       </item>
+
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="signInButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #4A90E2, stop:1 #357ABD);
+ color: white;
+ border-radius: 20px;
+ padding: 10px 20px;
+ font-weight: bold;
+}
+QPushButton:hover {
+ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #5AA0F2, stop:1 #468BDC);
+}</string>
+         </property>
+         <property name="text">
+          <string>Sign In</string>
+         </property>
+        </widget>
+       </item>
+
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="signUpButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+ background-color: transparent;
+ color: #357ABD;
+ border: none;
+ text-decoration: underline;
+}
+QPushButton:hover {
+ color: #5AA0F2;
+}</string>
+         </property>
+         <property name="text">
+          <string>Don't have an account? Sign Up</string>
+         </property>
+        </widget>
+       </item>
+
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

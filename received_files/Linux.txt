@@ -1,0 +1,55 @@
+1. Trình bày theo nội dung này (theo thứ tự): 
+
+ĐẶT TÊN ĐỀ TÀI:  Tìm hiểu và cấu hình dịch vụ ... trên hệ điều hành Ubuntu
+
+Nội dung báo cáo:
+ - Tổng quan về đề tài (như đề cương chi tiết) gồm: 
+    + mục tiêu
+    + nội dung nghiên cứu lý thuyết + thực hành + công cụ hỗ trợ
+    + dự kiến kết quả đạt được
+ - Phần lý thuyết: trình bày các nội dung lý thuyết liên quan đến đề tài (làm slide liệt kê các lý thuyết liên quan, để cô biết mình tìm hiểu những lý thuyết gì - giống như table of content. Sau đó mới trình bày chi tiết)
+ - chỉ làm Slide, cuối kì mới làm file báo cáo.
+
+2. Tổng quan đề tài là tương tự như đề cương chi tiết
+
+3. Tìm hiểu về mục tiêu:
+- Tìm hiểu về vai trò, khái niệm, không tìm hiểu chi tiết
+
+4. Hiểu được cấu trúc của (đề tài) mình đang tìm hiểu, lý thuyết các bước triển khai (triển khai nêu cụ thể, lý thuyết trình bày chung)
+
+5. Trước khi thực hiện các bước thì nhóm đưa ra các công cụ hỗ trợ (có đưa vào slide - công cụ, ngôn ngữ, hệ điều hành - đây là phần trình bày trong phần lý thuyết - phải giới thiệu trước rồi sau đó mới có trong phần lý thuyết version bao nhiêu)
+
+6. Phải viết bash script (là 1 nội dung lý thuyết) (không được thiếu)
+- Khái niệm
+- ....
+- Ví dụ nhỏ
+
+7. Ít nhất phải có 2 thành phần (2 đối tượng: Server và client). 
+- Lý thuyết trình Khi giới thiệu phải có 1 máy chủ server (dùng ubuntu), máy client dùng máy ảo (ubuntu) cũng được, máy thật (win) cũng được. 
+-Chương triển khai Một hình ảnh mô phỏng thực tế, mô hình triển khai thực nghiệm(client -> server, note các thông tin server 1 bên, client 1 bên) gồm các ip,...
+- Note: Hình ảnh mô hình triển khai thực nghiệm phải tự vẽ, không được lấy trên mạng.
+
+8. Tìm hiểu giới thiệu những công cụ khác, tại sao lại không sử dụng công cụ khác mà sử dụng công cụ đó (vd: MySQL)
+
+9. Phải giới thiệu cơ sở lý thuyết về các công cụ
+
+10. Phần lý thuyết sẽ giới thiệu chung về các công cụ (vd: công cụ ubuntu, giới thiệu bash script)
+- Trong phần triển khai sẽ nói cụ thể về các công cụ (version,....) (vd: không còn giới thiệu bash scrip gì nữa)
+
+10. Tài liệu liên quan
+
+11. Tổng hợp chính
+Khai thác được cấu trúc mã nguồn mở
+Viết được bash scrip
+Hình ảnh tự vẽ (mục triển khai liên quan đến thực nghiệm). 
+
+Note: 
+- Cô sẽ chọn 1 người bất kỳ yêu cầu tổng hợp lại tất cả lý thuyết của nhóm một cách cụ thể. (liệt kê ngắn gọn cụ thể chính xác)
+- Trình bày mới được điểm cộng
+- Tùy theo mức độ đóng góp mà được cộng điểm vào giữa kỳ (tối đa 2 điểm)
+- Tuần sau nữa (sau tuần nhóm mình trình bày) sẽ nộp báo cáo + 1 chút demo
+- Làm slide phải có giới thiệu chung về những gì cần trình bày tiếp theo. 
+vd: 1. Tổng quan báo cáo
+	1.1. Mục tiêu
+	1.2. Nội dung nghiên cứu
+	....
