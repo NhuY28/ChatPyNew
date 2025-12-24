@@ -83,6 +83,11 @@ class VideoCall(QDialog):
         self.audio_fs = 16000
         self.audio_chunk = 1024
 
+        # audio playback (NHẬN)
+        self._audio_play_queue = queue.Queue(maxsize=100)
+        self._t_audio_play = None
+
+
     # ---------- lifecycle ----------
     def start(self):
         if self.is_running:
@@ -108,6 +113,11 @@ class VideoCall(QDialog):
         self._t_send.start()
         self._t_audio.start()
         self._t_ui.start()
+        self._t_audio_play = threading.Thread(
+            target=self._audio_play_loop,
+            daemon=True
+        )
+        self._t_audio_play.start()
 
         self.resizeEvent(None)
 
@@ -192,29 +202,33 @@ class VideoCall(QDialog):
             except queue.Empty:
                 continue
 
+            audio_bytes = b""
+            # lấy nhiều audio chunk mỗi lần
+            while not self._audio_queue.empty():
+                try:
+                    audio_bytes += self._audio_queue.get_nowait()
+                except queue.Empty:
+                    break
+
             b64_audio = ""
-            try:
-                audio_data = self._audio_queue.get_nowait()
-                b64_audio = base64.b64encode(audio_data).decode('ascii')
-            except queue.Empty:
-                pass
+            if audio_bytes:
+                b64_audio = base64.b64encode(audio_bytes).decode("ascii")
 
             try:
-                try:
-                    self.client.send_video_stream(self.target_user, b64_video, b64_audio)
-                except Exception:
-                    self.client.send(f"VIDEO_STREAM|{self.target_user}|{b64_video}|{b64_audio}\n")
+                self.client.send_video_stream(
+                    self.target_user, b64_video, b64_audio
+                )
             except Exception as e:
                 print("[VideoCall] send error:", e)
                 self.is_running = False
                 break
-            time.sleep(0.01)
+                time.sleep(0.01)
 
     # ---------- audio capture ----------
     def _audio_capture_loop(self):
         def callback(indata, frames, time_info, status):
-            if not self.is_running:
-                raise sd.CallbackStop()
+            if not self.is_running or not self.call_established:
+                return
             try:
                 self._audio_queue.put_nowait(indata.copy().tobytes())
             except queue.Full:
@@ -243,12 +257,46 @@ class VideoCall(QDialog):
             if b64_audio:
                 audio_bytes = base64.b64decode(b64_audio)
                 audio_np = np.frombuffer(audio_bytes, dtype=np.int16)
+
                 try:
-                    sd.play(audio_np, self.audio_fs, blocking=False)
-                except Exception as e:
-                    print("[VideoCall] audio playback error:", e)
+                    self._audio_play_queue.put_nowait(audio_np)
+                except queue.Full:
+                    pass
         except Exception as e:
             print("[VideoCall] receive_remote_frame error:", e)
+
+    def _audio_play_loop(self):
+        def callback(outdata, frames, time_info, status):
+            if not self.is_running:
+                outdata.fill(0)
+                return
+
+            try:
+                data = self._audio_play_queue.get_nowait()
+                data = data.reshape(-1, 1)
+
+                # nếu data ngắn hơn buffer
+                if len(data) < len(outdata):
+                    outdata[:len(data)] = data
+                    outdata[len(data):].fill(0)
+                else:
+                    outdata[:] = data[:len(outdata)]
+
+            except queue.Empty:
+                outdata.fill(0)
+
+        try:
+            with sd.OutputStream(
+                    samplerate=self.audio_fs,
+                    channels=1,
+                    dtype='int16',
+                    callback=callback,
+                    blocksize=self.audio_chunk
+            ):
+                while self.is_running:
+                    time.sleep(0.05)
+        except Exception as e:
+            print("[VideoCall] audio play error:", e)
 
     # ---------- UI update ----------
     def _ui_update_loop(self):

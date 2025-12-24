@@ -357,8 +357,7 @@ class ChatWindow(QtWidgets.QMainWindow):
 
         elif msg.startswith("VIDEO_ACCEPT|"):
             _, acceptor = msg.split("|", 1)
-            if self.current_video_call and not self.current_video_call.incoming:
-                print("🎥 Opponent accepted video call → Start camera")
+            if hasattr(self, "current_video_call") and self.current_video_call and not self.current_video_call.incoming:
                 self.current_video_call.accept_and_start()
                 self.current_video_call.show()
 
@@ -375,7 +374,11 @@ class ChatWindow(QtWidgets.QMainWindow):
             # deliver to current_video_call if matches sender
             if hasattr(self, "current_video_call") and self.current_video_call and self.current_video_call.target_user.strip() == sender.strip():
                 # push to videocall for display
-                QtCore.QTimer.singleShot(0, lambda b=b64_video: self.current_video_call.receive_remote_frame(b))
+                QtCore.QTimer.singleShot(
+                    0,
+                    lambda v=b64_video, a=b64_audio:
+                    self.current_video_call.receive_remote_frame(v, a)
+                )
 
         elif msg.startswith("VIDEO_END|"):
             try:
